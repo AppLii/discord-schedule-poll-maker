@@ -333,18 +333,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 py-6 px-4">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Discord 日程調整アンケート作成
-        </h1>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* 入力エリア */}
           <div className="space-y-6">
             {/* イベント概要入力 */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">イベント概要</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-700">1. イベント概要</h2>
               <textarea
                 className="w-full h-32 p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
                 placeholder="イベントの内容や概要を入力してください..."
@@ -355,7 +351,7 @@ export default function Home() {
 
             {/* オプション設定 */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">オプション設定</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-700">2. オプション設定</h2>
               <div className="flex items-center gap-3">
                 <input
                   type="checkbox"
@@ -372,7 +368,7 @@ export default function Home() {
 
             {/* 日程候補追加 */}
             <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">日程候補を追加</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-700">3. 日程候補を追加</h2>
               <div className="space-y-4">
                 {/* カレンダー */}
                 <div>
@@ -494,7 +490,7 @@ export default function Home() {
 
                   {/* 時間割クイック選択 */}
                   <div className="mt-3">
-                    <p className="text-xs font-medium text-gray-600 mb-2">よく使う時間割:</p>
+                    <p className="text-xs font-medium text-gray-600 mb-2">よく使う時間割：</p>
                     <div className="grid grid-cols-4 gap-2">
                       {PERIOD_TIMES.map((period) => (
                         <button
@@ -525,11 +521,9 @@ export default function Home() {
                   候補日を追加
                 </button>
               </div>
-            </div>
 
-            {/* 候補日リスト */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">候補日リスト</h2>
+              {/* 候補日リスト */}
+              <h2 className="text-xl font-semibold mb-4 text-gray-700 pt-6">候補として追加されている日程</h2>
               {dateOptions.length === 0 ? (
                 <p className="text-gray-500 text-center py-8">候補日が追加されていません</p>
               ) : (
@@ -561,7 +555,7 @@ export default function Home() {
           {/* プレビューエリア */}
           <div className="space-y-6">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
-              <h2 className="text-xl font-semibold mb-4 text-gray-700">プレビュー</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-700">4. プレビュー</h2>
               {generatePreview() ? (
                 <>
                   <div className="bg-gray-800 text-white p-6 rounded-md min-h-[300px] font-mono text-sm whitespace-pre-wrap mb-4">
