@@ -45,7 +45,9 @@ yarn install
 yarn dev
 ```
 
-ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
+ブラウザで [http://localhost:3000/discord-schedule-poll-maker/](http://localhost:3000/discord-schedule-poll-maker/) を開いてください。
+
+GitHub Pages へのデプロイの関係で、`/discord-schedule-poll-maker/` サブパスでホストされることに注意してください。
 
 ## 技術スタック
 
