@@ -75,7 +75,12 @@ export default function Home() {
       const date = new Date(startDate);
       date.setDate(startDate.getDate() + i);
 
-      const dateString = date.toISOString().split('T')[0];
+      // ローカルタイムゾーンで日付文字列を生成（UTC解釈を避ける）
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0');
+      const day = date.getDate().toString().padStart(2, '0');
+      const dateString = `${year}-${month}-${day}`;
+
       const isToday = date.getTime() === today.getTime();
       const isPast = date < today;
 
@@ -243,8 +248,15 @@ export default function Home() {
 
     // 既存の候補と新しい候補をマージして日時順にソート
     const allOptions = [...dateOptions, ...newOptions].sort((a, b) => {
-      const dateTimeA = new Date(`${a.date}T${a.time}`);
-      const dateTimeB = new Date(`${b.date}T${b.time}`);
+      // ローカルタイムゾーンで日付を解釈（UTC解釈を避ける）
+      const [yearA, monthA, dayA] = a.date.split('-').map(Number);
+      const [hoursA, minutesA] = a.time.split(':').map(Number);
+      const dateTimeA = new Date(yearA, monthA - 1, dayA, hoursA, minutesA);
+
+      const [yearB, monthB, dayB] = b.date.split('-').map(Number);
+      const [hoursB, minutesB] = b.time.split(':').map(Number);
+      const dateTimeB = new Date(yearB, monthB - 1, dayB, hoursB, minutesB);
+
       return dateTimeA.getTime() - dateTimeB.getTime();
     });
 
@@ -276,23 +288,27 @@ export default function Home() {
   };
 
   const formatDateForDisplay = (dateStr: string, timeStr: string) => {
-    const date = new Date(dateStr + 'T' + timeStr);
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
+    // ローカルタイムゾーンで日付を解釈（UTC解釈を避ける）
+    const [year, month, day] = dateStr.split('-').map(Number);
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    const date = new Date(year, month - 1, day, hours, minutes);
+
+    const displayMonth = date.getMonth() + 1;
+    const displayDay = date.getDate();
     const weekdays = ['日', '月', '火', '水', '木', '金', '土'];
     const weekday = weekdays[date.getDay()];
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const displayHours = date.getHours();
+    const displayMinutes = date.getMinutes().toString().padStart(2, '0');
 
-    const timeDisplay = `${hours}:${minutes}`;
+    const timeDisplay = `${displayHours}:${displayMinutes}`;
     const periodLabel = getTimePeriodLabel(timeStr);
 
     // 時間割に該当する場合は時間割名も表示
     if (periodLabel) {
-      return `${month}/${day}(${weekday}) ${periodLabel}（${timeDisplay}）`;
+      return `${displayMonth}/${displayDay}(${weekday}) ${periodLabel}（${timeDisplay}）`;
     }
 
-    return `${month}/${day}(${weekday}) ${timeDisplay}`;
+    return `${displayMonth}/${displayDay}(${weekday}) ${timeDisplay}`;
   };
 
   const generatePreview = () => {
@@ -427,27 +443,32 @@ export default function Home() {
                         選択中の日付（{selectedDates.length}件）
                       </div>
                       <div className="flex flex-wrap gap-2">
-                        {selectedDates.map((dateStr) => (
-                          <div
-                            key={dateStr}
-                            className="inline-flex items-center gap-1 px-2 py-1 bg-white rounded text-xs text-gray-700 border border-indigo-200"
-                          >
-                            {new Date(dateStr + 'T00:00:00').toLocaleDateString('ja-JP', {
-                              month: 'numeric',
-                              day: 'numeric',
-                              weekday: 'short'
-                            })}
-                            <button
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                toggleDateSelection(dateStr);
-                              }}
-                              className="ml-1 text-indigo-600 hover:text-indigo-800"
+                        {selectedDates.map((dateStr) => {
+                          // ローカルタイムゾーンで日付を解釈（UTC解釈を避ける）
+                          const [year, month, day] = dateStr.split('-').map(Number);
+                          const localDate = new Date(year, month - 1, day);
+                          return (
+                            <div
+                              key={dateStr}
+                              className="inline-flex items-center gap-1 px-2 py-1 bg-white rounded text-xs text-gray-700 border border-indigo-200"
                             >
-                              ✕
-                            </button>
-                          </div>
-                        ))}
+                              {localDate.toLocaleDateString('ja-JP', {
+                                month: 'numeric',
+                                day: 'numeric',
+                                weekday: 'short'
+                              })}
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  toggleDateSelection(dateStr);
+                                }}
+                                className="ml-1 text-indigo-600 hover:text-indigo-800"
+                              >
+                                ✕
+                              </button>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   )}
