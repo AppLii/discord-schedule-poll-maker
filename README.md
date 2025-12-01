@@ -1,34 +1,59 @@
-# discord-schedule-poll-maker
+# Discord 日程調整アンケート作成ツール
 
-Discord 用の日程調整アンケートを、カレンダー UI から直感的に作成してコピペできる静的 Web アプリ
+Discord コミュニティでの日程調整アンケートを簡単に作成できる Next.js アプリケーションです。
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## URL
 
-## Getting Started
+- [https://applii-wu.net/discord-schedule-poll-maker/](https://applii-wu.net/discord-schedule-poll-maker/)
+- [https://applii.github.io/discord-schedule-poll-maker/](https://applii.github.io/discord-schedule-poll-maker/)
 
-First, run the development server:
+## 機能
+
+- **イベント概要の入力**: イベントの内容や概要を自由に記述
+- **日程候補の追加**: 日付と時間を選択して候補日を追加
+- **自動絵文字割り当て**: 各候補日に Discord の絵文字(1️⃣, 2️⃣, 3️⃣...)を自動割り当て
+- **リアルタイムプレビュー**: 入力内容が即座にプレビューに反映
+- **ワンクリックコピー**: 作成したメッセージをクリップボードにコピー
+- **静的サイト出力**: 完全に静的な HTML として出力可能
+
+## 使い方
+
+1. 「イベント概要」にイベントの説明を入力
+2. 「日程候補を追加」セクションで日付と時間を選択
+3. 「候補日を追加」ボタンをクリック
+4. プレビューを確認
+5. 「クリップボードにコピー」ボタンをクリック
+6. Discord のチャンネルに貼り付け
+7. 各候補日の絵文字をリアクションとして追加
+
+## 開発環境のセットアップ
+
+### 必要要件
+
+- Node.js 18 以上
+- yarn
+
+### インストール
+
+```bash
+yarn install
+```
+
+### 開発サーバーの起動
 
 ```bash
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いてください。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 技術スタック
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 15**: React フレームワーク
+- **TypeScript**: 型安全な開発
+- **Tailwind CSS**: スタイリング
+- **Static Export**: 完全静的サイト生成
 
-## Learn More
+## ライセンス
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT
